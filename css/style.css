@@ -153,7 +153,7 @@ body {
     /* OKRUGLI OBLIK */
     border-radius: 50%;
     
-    /* Centriranje sadržaja unutar kruga */
+    /* CENTRIRANJE: Koristimo flex za centriranje sadržaja (ikone) */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,9 +161,8 @@ body {
     /* Standardni efekti */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     
-    /* ISPRAVKA: Sakrivamo tekst pomeranjem */
-    text-indent: -9999px; 
-    overflow: hidden;
+    /* VRAĆAMO ga na standardno ponašanje bez skrivenog teksta */
+    position: static; 
 }
 
 .zastoj-button-item:hover {
@@ -179,10 +178,9 @@ body {
     font-size: 60px; /* Uvećavamo ikonu šake */
     margin-right: 0 !important; 
     
-    /* VRAĆANJE TEKSTA IKONE: Vraćamo je u vidljivo područje unutar kruga */
-    text-indent: 0; 
-    
-    position: absolute; 
+    /* Osiguravamo da je ikona vidljiva i centrirana */
+    position: relative;
+    z-index: 1; 
 }
 
 
