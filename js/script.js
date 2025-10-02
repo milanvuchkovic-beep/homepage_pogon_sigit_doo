@@ -31,34 +31,47 @@ document.addEventListener('DOMContentLoaded', () => {
  * Obrađuje klik na dugme menija, dodaje vizuelni feedback
  * i priprema URL za Google Web App (Apps Script).
  */
-function handleMenuClick(buttonId, originalText, baseUrl) {
+// ... u js/script.js ...
+
+// ----------------------------------------------------------------------
+// FUNKCIJA ZA KLIK (Sada prima 'pageName' umesto Base URL-a)
+// ----------------------------------------------------------------------
+
+/**
+ * Obrađuje klik na dugme menija, dodaje vizuelni feedback
+ * i kreira URL sa dva ključna parametra: 'page' i 'id' stanice.
+ */
+function handleMenuClick(buttonId, originalText, pageName) {
     const dugme = document.getElementById(buttonId);
+    
+    // DEFINIŠITE JEDINSTVENI BASE URL VAŠE GOOGLE APPS SKRIPT WEBAPP
+    // Ovo je isti URL za sve Vaše funkcije (exec adresa)
+    const APPS_SCRIPT_BASE_URL = 'https://script.google.com/macros/s/AKfycbzqN45kEhZsWu-zessd_1qvXvnLgGsnDQ0R5G81JScqt2zdW0edrYs8QZ_p50vXpNU/exec';
     
     if (dugme) {
         dugme.addEventListener('click', function() {
             if (dugme.classList.contains('loading-state')) {
                 return; 
             }
-
-            // 1. VIZUELNI FEEDBACK: Promena stanja na "UČITAVANJE"
+            
+            // 1. VIZUELNI FEEDBACK: Promena stanja
             dugme.classList.add('loading-state');
             dugme.textContent = 'UČITAVANJE...';
             
-            // 2. KREIRANJE CILJNOG URL-a ZA GOOGLE SKRIPTU
-            // Base URL + ?station=PR05
-            const targetUrl = `${baseUrl}?station=${CURRENT_STATION_ID}`;
+            // 2. KREIRANJE CILJNOG URL-a
+            // Ovo je ključna izmena: dodajemo ?page= i &id=
+            const targetUrl = `${APPS_SCRIPT_BASE_URL}?page=${pageName}&id=${CURRENT_STATION_ID}`;
             
             console.log(`Kliknuto: ${originalText}. Ciljni URL: ${targetUrl}`);
 
-            // 3. SIMULACIJA UČITAVANJA (Zameniti stvarnom logikom)
+            // 3. SIMULACIJA UČITAVANJA
             setTimeout(() => {
-                alert(`Aplikacija za "${originalText}" (Stanica ${CURRENT_STATION_ID}) je USPEŠNO učitana. Simulacija otvara: ${targetUrl}`);
+                alert(`Aplikacija za "${originalText}" (Page: ${pageName}, ID: ${CURRENT_STATION_ID}) je USPEŠNO učitana. Simulacija otvara: ${targetUrl}`);
                 
-                // Vraćanje dugmeta u normalno stanje
                 dugme.classList.remove('loading-state');
                 dugme.textContent = originalText;
 
-                // OVO JE KOD KOJI BI OTVORIO GOOGLE WEB APP:
+                // KOD ZA STVARNO PREUSMERAVANJE:
                 // window.location.href = targetUrl; 
 
             }, 2000); 
@@ -67,17 +80,19 @@ function handleMenuClick(buttonId, originalText, baseUrl) {
 }
 
 // ----------------------------------------------------------------------
-// POVEZIVANJE DUGMADI SA BASE URL-OVIMA VAŠIH GOOGLE APLIKACIJA
+// POVEZIVANJE DUGMADI (Sada šaljemo samo pageName - npr. 'primopredaja')
 // ----------------------------------------------------------------------
 
-// Zamenite 'https://vase-webapp-domen.com/api' sa stvarnim BASE URL-om Vaših Apps Script Web App-ova (npr. 'https://script.google.com/macros/s/ABCDEF/exec')
+// ZAMENITE Base URL iznad sa Vašim stvarnim exec URL-om!
 
-// PRIMERI POZIVA:
-handleMenuClick('prijavaSmene', 'Prijava smene', 'https://vase-webapp-domen.com/api/smene');
-handleMenuClick('prijavaDelova', 'Prijava proizvodnje delova', 'https://vase-webapp-domen.com/api/delovi');
-handleMenuClick('prijavaPauza', 'Prijava pauza', 'https://vase-webapp-domen.com/api/pauza');
-handleMenuClick('izmenaParametara', 'Izmena parametara', 'https://vase-webapp-domen.com/api/parametri');
-handleMenuClick('prijavaZamene', 'Prijava zamene alata', 'https://vase-webapp-domen.com/api/alati');
+handleMenuClick('prijavaSmeneDugme', 'Prijava smene', 'primopredaja'); // page=primopredaja
+handleMenuClick('prijavaDelova', 'Prijava proizvodnje delova', 'proizvodnja'); // page=proizvodnja_v2
+handleMenuClick('prijavaPauza', 'Prijava pauza', 'pauza'); // page=pauza
+handleMenuClick('izmenaParametara', 'Izmena parametara', 'parametri'); // page=parametri
+handleMenuClick('proveraKvalitetaDugme', 'Provera kvaliteta', 'kvalitet'); // page=kvalitet
+handleMenuClick('prijavaZamene', 'Prijava zamene alata', 'zamena'); // page=zamena
+
+// ... (Ostatak logike za Play/Stop/Zastoj dugmad se prilagođava slično)
 
 // Logika za START/STOP i Zastoj
 document.getElementById('playDugme').addEventListener('click', function() {
