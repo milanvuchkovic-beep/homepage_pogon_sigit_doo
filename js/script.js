@@ -32,9 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Obrađuje klik na dugme menija i kreira URL sa parametrima 'page' i 'id'.
- * @param {string} buttonId - HTML ID dugmeta.
- * @param {string} originalText - Originalni tekst dugmeta za vizuelni feedback.
- * @param {string} pageName - Page parametar koji se šalje Apps Script-u (npr. 'pocetak').
  */
 function handleMenuClick(buttonId, originalText, pageName) {
     const dugme = document.getElementById(buttonId);
@@ -52,7 +49,7 @@ function handleMenuClick(buttonId, originalText, pageName) {
             // 2. KREIRANJE CILJNOG URL-a: BaseURL + ?page=XXX&id=PRXX
             const targetUrl = `${APPS_SCRIPT_BASE_URL}?page=${pageName}&id=${CURRENT_STATION_ID}`;
             
-            console.log(`Otvaranje: ${originalText}. Ciljni URL: ${targetUrl}`);
+            console.log(`Otvaranje: ${originalText} (Page: ${pageName}). URL: ${targetUrl}`);
 
             // 3. STVARNO PREUSMERAVANJE (Otvaranje WebApp u istom prozoru)
             window.location.href = targetUrl; 
@@ -65,14 +62,15 @@ function handleMenuClick(buttonId, originalText, pageName) {
 // 3. POVEZIVANJE DUGMADI SA ISPRAVNIM PAGE PARAMETRIMA
 // ----------------------------------------------------------------------
 
-// Dugmad iz glavnog menija
+// Dugmad iz glavnog menija (Operateri/Šefovi)
 handleMenuClick('prijavaSmeneDugme', 'Prijava smene (OPERATERI)', 'smena');
 handleMenuClick('prijavaSkartaDugme', 'Prijava škarta', 'proizvodnja_v2'); 
 handleMenuClick('prijavaPauzaDugme', 'Prijava pauza', 'pauza');
 handleMenuClick('izmenaParametaraDugme', 'Izmena parametara', 'izmena_parametara');
 handleMenuClick('primopredajaDugme', 'Primopredaja smene (ŠEFOVI)', 'primopredaja');
 
+
 // Akciona dugmad (zeleno/crveno/žuto)
-handleMenuClick('playDugme', 'START', 'pocetak'); // 1. Zeleno dugme
-handleMenuClick('stopDugme', 'KRAJ', 'kraj'); // 2. Crveno dugme
-handleMenuClick('zastojiDugme', 'ZASTOJ', 'zastoj'); // 7. Žuto dugme
+handleMenuClick('playDugme', 'START/POČETAK', 'pocetak'); 
+handleMenuClick('stopDugme', 'STOP/KRAJ', 'kraj'); 
+handleMenuClick('zastojiDugme', 'ZASTOJ', 'zastoj');
