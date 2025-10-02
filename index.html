@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radna stanica PR01 - Komandna tabla</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="top-nav">
+        <div class="left-side">
+            <div class="pogon-logo">Pogon.io</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Planiranje</a>
+                <a href="#">Alati</a>
+                <a href="#" class="active-link">RADNA STANICA PR01</a>
+                <a href="#">More <i class="fas fa-caret-down"></i></a>
+            </div>
+        </div>
+        <div class="right-side">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <div class="factory-section">
+            <button class="action-button play-button" id="playDugme">
+                <i class="fas fa-play-circle"></i>
+            </button>
+            
+            <h1 class="main-title" id="mainTitle">Radna stanica PR01</h1>
+            
+            <button class="action-button stop-button" id="stopDugme">
+                <i class="fas fa-stop-circle"></i>
+            </button>
+        </div>
+
+        <div class="menu-grid">
+            <button class="menu-item" id="prijavaSmene">Prijava smene</button>
+            <button class="menu-item" id="prijavaDelova">Prijava proizvodnje delova</button>
+            <button class="menu-item" id="prijavaPauza">Prijava pauza</button>
+            <button class="menu-item" id="izmenaParametara">Izmena parametara</button>
+            <button class="menu-item" id="prijavaZamene" style="grid-column: span 2;">Prijava zamene alata</button> 
+        </div>
+
+        <div class="zastoj-section">
+            <button class="zastoji-button" id="zastojiDugme">
+                <i class="fas fa-hand-paper"></i>
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        © 2025 Pogon.io. Sva prava zadržana.
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
