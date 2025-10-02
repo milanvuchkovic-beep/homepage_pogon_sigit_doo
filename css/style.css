@@ -140,6 +140,7 @@ body {
     width: 100px; height: 100px;
     display: inline-flex; align-items: center; justify-content: center;
     transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
+    font-size: 70px;
 }
 
 /* --- UČITAVANJE STANJA (JS Feedback) --- */
