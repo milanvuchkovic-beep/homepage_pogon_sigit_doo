@@ -157,9 +157,10 @@ body {
     
     /* Standardni efekti */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-
-    /* SKRIVANJE TEKSTA: Smanjuje font na nulu, ostavljajući samo ikonu vidljivom */
-    font-size: 0; 
+    
+    /* ISPRAVKA: Sakrivamo tekst pomeranjem, NE smanjivanjem fonta na 0 */
+    text-indent: -9999px; 
+    overflow: hidden;
 }
 
 .zastoj-button-item:hover {
@@ -173,9 +174,14 @@ body {
 
 .zastoj-button-item i {
     font-size: 60px; /* Uvećavamo ikonu šake */
-    margin-right: 0 !important; /* Uklanjamo inline marginu teksta */
+    margin-right: 0 !important; 
+    
+    /* VRAĆANJE TEKSTA IKONE: Vraćamo je u vidljivo područje unutar kruga */
+    text-indent: 0; 
+    
+    /* Koristimo !important da nadjačamo bilo koju drugu marginu */
+    position: absolute; 
 }
-/* Tekst ZASTOJ se verovatno neće videti, ali je vizuelni fokus na ikoni */
 
 
 /* --- SEKCIJA ZA ŠEFOVE (Primopredaja) --- */
