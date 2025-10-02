@@ -17,7 +17,7 @@ body {
 
 /* --- SEKCIJA SA SLIKOM FABRIKE --- */
 .factory-section {
-    background-image: url('../img/fabrika.jpg'); /* Relativna putanja do img/ foldera */
+    background-image: url('https://i.postimg.cc/8PZXqTxb/fabrika.jpg'); /* Relativna putanja do img/ foldera */
     background-size: cover;
     background-position: center;
     padding: 80px 20px;
