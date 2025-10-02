@@ -157,6 +157,9 @@ body {
     
     /* Standardni efekti */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+    /* SKRIVANJE TEKSTA: Smanjuje font na nulu, ostavljajući samo ikonu vidljivom */
+    font-size: 0; 
 }
 
 .zastoj-button-item:hover {
