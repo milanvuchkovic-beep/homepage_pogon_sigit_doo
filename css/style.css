@@ -9,7 +9,21 @@ body {
 
 /* --- LOGO I NAVIGACIONI BAR --- */
 .top-nav {
-    display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: #fff; color: #333; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex; 
+    justify-content: center; /* CENTRIRANJE NAVIGACIJE */
+    align-items: center; 
+    padding: 10px 20px; 
+    background-color: #fff; 
+    color: #333; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.top-nav .left-side {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .pogon-logo {
@@ -21,7 +35,9 @@ body {
 }
 
 #pogonLogoImg {
-    height: 30px; /* Veličina ikonice */
+    /* ISPRAVKA: Fiksiramo visinu LOGO ikonice */
+    height: 30px; 
+    width: auto;
     margin-right: 8px;
 }
 
@@ -35,7 +51,7 @@ body {
 
 .content-wrapper { 
     max-width: 900px; 
-    margin: 0 auto; 
+    margin: 0 auto; /* Održava centriranost glavnog sadržaja */
     padding-bottom: 20px; 
 }
 
@@ -136,6 +152,8 @@ body {
 }
 
 .supervisor-button i {
+    /* ISPRAVKA IKONE: Veća ikona razmene/ljudi */
+    font-size: 24px;
     margin-right: 10px;
 }
 
@@ -189,7 +207,37 @@ body {
     .factory-section .main-title { font-size: 60px; }
     .play-button, .stop-button { font-size: 100px; }
     .menu-item { padding: 25px 15px; }
+    
+    /* ISPRAVKA CENTRIRANJA U NAVIGACIJI NA VEĆIM EKRANIMA */
+    .top-nav .left-side {
+        justify-content: flex-start;
+        gap: 30px;
+    }
+    .top-nav .nav-links {
+        display: flex;
+    }
+    
     .content-wrapper { max-width: 1024px; }
-    .supervisor-button { width: 45%; display: inline-block; margin-right: 15px;}
-    .zastoj-container { display: inline-block; vertical-align: top;} /* Bolji raspored na tabletu */
+    
+    /* ISPRAVKA RASPOREDA ŠEFOVI / ZASTOJ */
+    .supervisor-button { 
+        width: 45%; 
+        display: inline-block; 
+        margin-right: 15px;
+        /* Osigurava da dugme bude vertikalno poravnato sa Zastojem */
+        vertical-align: top;
+    }
+    .zastoj-container { 
+        display: inline-block; 
+        vertical-align: top; 
+        width: 45%; 
+        /* Osigurava da zauzmu sličan prostor na tabletu */
+    } 
+    /* Centrira kontejnere unutar special-actions-section */
+    .special-actions-section {
+        display: flex;
+        justify-content: center; 
+        align-items: flex-start;
+        flex-wrap: wrap; /* Omogućava prelamanje na manjim ekranima */
+    }
 }
