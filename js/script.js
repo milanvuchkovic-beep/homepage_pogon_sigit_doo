@@ -78,3 +78,5 @@ handleMenuClick('primopredajaDugme', 'Primopredaja smene (ŠEFOVI)', 'primopreda
 handleMenuClick('playDugme', 'START/POČETAK', 'pocetak'); 
 handleMenuClick('stopDugme', 'STOP/KRAJ', 'kraj'); 
 handleMenuClick('zastojiDugme', 'ZASTOJ', 'zastoj');
+
+<script src="js/script.js?v=2.0"></script>
