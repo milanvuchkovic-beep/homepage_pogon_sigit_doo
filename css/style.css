@@ -40,7 +40,7 @@ body {
 /* --- SEKCIJA SA SLIKOM FABRIKE --- */
 .factory-section {
     /* Putanja do slike je sada relativna u odnosu na css/ folder (koristi ../img/) */
-    background-image: url('../img/fabrika.jpg'); 
+    background-image: url('https://i.postimg.cc/8PZXqTxb/fabrika.jpg'); 
     background-size: cover;
     background-position: center;
     padding: 80px 20px;
