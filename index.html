@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radna stanica - Komandna tabla</title>
     
-    <!-- Link ka Font Awesome za ikone (Play, Stop, Ruka, Čekić...) -->
+    <!-- Link ka Font Awesome za ikone (Play, Stop, Ruka, Razmena) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- POVEZIVANJE EKSTERNOG CSS FAJLA -->
@@ -15,7 +15,11 @@
 
     <header class="top-nav">
         <div class="left-side">
-            <div class="pogon-logo">Pogon.io</div>
+            <!-- Pogon.io logo sa ikonicom -->
+            <div class="pogon-logo">
+                <img id="pogonLogoImg" src="https://i.postimg.cc/L6KLbH84/Pogon-io-LOGO-vertical.png" alt="Pogon.io Logo">
+                Pogon.io
+            </div>
             <div class="nav-links">
                 <a href="#">Home</a>
                 <a href="#">Planiranje</a>
@@ -45,29 +49,35 @@
             </button>
         </div>
 
-        <!-- Glavna mreža dugmadi (3 reda po 2 dugmeta) -->
+        <!-- Glavna mreža dugmadi (OPŠTI POSLOVI OPERATERA) -->
         <div class="menu-grid">
             <!-- 3. Prijava smene (OPERATERI) -->
             <button class="menu-item" id="prijavaSmeneDugme">Prijava smene (OPERATERI)</button>
             
-            <!-- 8. Primopredaja smene (ŠEFOVI) -->
-            <button class="menu-item supervisor-item" id="primopredajaDugme">Primopredaja smene (ŠEFOVI)</button>
-
             <!-- 4. Prijava škarta -->
             <button class="menu-item" id="prijavaSkartaDugme">Prijava škarta</button>
             
             <!-- 5. Prijava pauza -->
             <button class="menu-item" id="prijavaPauzaDugme">Prijava pauza</button>
 
-            <!-- 6. Izmena parametara (Punom širinom za bolji izgled) -->
+            <!-- 6. Izmena parametara (Punom širinom) -->
             <button class="menu-item" id="izmenaParametaraDugme" style="grid-column: span 2;">Izmena parametara</button>
         </div>
 
-        <!-- 7. ZUTO DUGME: ZASTOJ -->
-        <div class="zastoj-section">
-            <button class="zastoji-button" id="zastojiDugme">
-                <i class="fas fa-hand-paper"></i>
+        <!-- NOVI RED ZA ŠEFOVE I ZASTOJ (Van mreže) -->
+        <div class="special-actions-section">
+
+            <!-- 8. Primopredaja smene (ŠEFOVI) - PLAVO DUGME SA IKONOM -->
+            <button class="supervisor-button" id="primopredajaDugme">
+                <i class="fas fa-exchange-alt"></i> Primopredaja smene (ŠEFOVI)
             </button>
+            
+            <!-- 7. ZUTO DUGME: ZASTOJ -->
+            <div class="zastoj-container">
+                <button class="zastoji-button" id="zastojiDugme">
+                    <i class="fas fa-hand-paper"></i>
+                </button>
+            </div>
         </div>
     </div>
 
