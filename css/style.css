@@ -140,13 +140,39 @@ body {
 .zastoj-button-item {
     background-color: #ffc107;
     color: #333;
+    
+    /* OVERWRITE: Svojstva da dugme bude okruglo i centrirano */
+    width: 120px;
+    height: 120px;
+    padding: 0;
+    margin: 15px auto; /* Centriranje elementa unutar grid span-a */
+    
+    /* OKRUGLI OBLIK */
+    border-radius: 50%;
+    
+    /* Centriranje sadržaja unutar kruga */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Standardni efekti */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
 .zastoj-button-item:hover {
     background-color: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
+.zastoj-button-item:active {
+    background-color: #c69500;
+}
+
 .zastoj-button-item i {
-    font-size: 24px; 
+    font-size: 60px; /* Uvećavamo ikonu šake */
+    margin-right: 0 !important; /* Uklanjamo inline marginu teksta */
 }
+/* Tekst ZASTOJ se verovatno neće videti, ali je vizuelni fokus na ikoni */
 
 
 /* --- SEKCIJA ZA ŠEFOVE (Primopredaja) --- */
