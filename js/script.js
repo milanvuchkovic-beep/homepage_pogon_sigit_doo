@@ -35,16 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function handleMenuClick(buttonId, originalText, pageName) {
     const dugme = document.getElementById(buttonId);
-    
+    const statusDiv = document.getElementById('statusMessage');
+
     if (dugme) {
         dugme.addEventListener('click', function() {
             if (dugme.classList.contains('loading-state')) {
                 return; 
             }
             
-            // 1. VIZUELNI FEEDBACK: Trenutno stanje "OTVARANJE"
+            // 1. VIZUELNI FEEDBACK: Diskretan natpis pri vrhu (bez promene samog dugmeta)
+            statusDiv.textContent = `OTVARANJE: ${originalText}...`;
+            statusDiv.classList.add('visible'); 
+
+            // Dodajemo loading state samo da sprečimo dupli klik, ali ne menja izgled
             dugme.classList.add('loading-state');
-            dugme.textContent = 'OTVARANJE...'; 
             
             // 2. KREIRANJE CILJNOG URL-a: BaseURL + ?page=XXX&id=PRXX
             const targetUrl = `${APPS_SCRIPT_BASE_URL}?page=${pageName}&id=${CURRENT_STATION_ID}`;
