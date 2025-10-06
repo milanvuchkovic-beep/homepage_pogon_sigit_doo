@@ -84,5 +84,3 @@ handleMenuClick('playDugme', 'START/POČETAK', 'pocetak');
 handleMenuClick('stopDugme', 'STOP/KRAJ', 'kraj'); 
 handleMenuClick('zastojiDugme', 'ZASTOJ', 'zastoj');
 
-
-<script src="js/script.js?v=2.1"></script>
