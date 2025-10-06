@@ -13,8 +13,12 @@
 </head>
 <body>
 
+    <!-- Diskretan statusni natpis za "OTVARANJE..." -->
+    <div id="statusMessage" class="status-message"></div>
+
     <header class="top-nav">
         <div class="left-side">
+            <!-- Pogon.io logo sa ikonicom -->
             <div class="pogon-logo">
                 <img id="pogonLogoImg" src="https://i.postimg.cc/L6KLbH84/Pogon-io-LOGO-vertical.png" alt="Pogon.io Logo">
                 Pogon.io
@@ -35,9 +39,6 @@
     <div class="content-wrapper">
         
         <div class="factory-section">
-            <!-- Prikazuje natpis statusa: "OTVARANJE..." (Diskretno pri vrhu) -->
-            <div id="statusMessage" class="status-message"></div>
-            
             <!-- 1. ZELENO DUGME: START/POČETAK -->
             <button class="action-button play-button" id="playDugme">
                 <i class="fas fa-play-circle"></i>
@@ -51,39 +52,42 @@
             </button>
         </div>
 
-        <!-- Glavna mreža dugmadi (SADA 2x2 MREŽA + ZASTOJ) -->
+        <!-- Glavna mreža dugmadi (OPŠTI POSLOVI OPERATERA, sa Zastojem) -->
         <div class="menu-grid">
             <!-- 3. Prijava smene (OPERATERI) -->
             <button class="menu-item" id="prijavaSmeneDugme">Prijava smene (OPERATERI)</button>
             
             <!-- 4. Prijava škarta -->
             <button class="menu-item" id="prijavaSkartaDugme">Prijava škarta</button>
-
+            
             <!-- 5. Prijava pauza -->
             <button class="menu-item" id="prijavaPauzaDugme">Prijava pauza</button>
-            
-            <!-- 6. Izmena parametara (PORED PAUZE) -->
+
+            <!-- 6. Izmena parametara -->
             <button class="menu-item" id="izmenaParametaraDugme">Izmena parametara</button>
             
-            <!-- 7. ZASTOJ (Centrirano u redu) -->
-            <button class="menu-item zastoj-button-item" id="zastojiDugme" style="grid-column: span 2;">
-                <i class="fas fa-hand-paper"></i>
-            </button>
+            <!-- 7. ZUTO DUGME: ZASTOJ (Okruglo dugme sa ikonom) -->
+            <div class="zastoj-item-container" style="grid-column: span 2;">
+                <button class="menu-item zastoj-button-item" id="zastojiDugme">
+                    <i class="fas fa-hand-paper"></i> 
+                </button>
+            </div>
         </div>
-        
-        <!-- 8. Primopredaja smene (ŠEFOVI) - SAMO PLAVO DUGME NA DNU -->
+
+        <!-- SEKCIJA ZA ŠEFOVE (Primopredaja) -->
         <div class="supervisor-section">
+            <!-- 8. Primopredaja smene (ŠEFOVI) - Plavo dugme na dnu -->
             <button class="supervisor-button" id="primopredajaDugme">
                 <i class="fas fa-exchange-alt"></i> Primopredaja smene (ŠEFOVI)
             </button>
         </div>
-        
     </div>
 
     <footer class="footer">
         © 2025 Pogon.io. Sva prava zadržana.
     </footer>
 
+    <!-- POVEZIVANJE EKSTERNOG JAVASCRIPT FAJLA -->
     <script src="js/script.js"></script>
 </body>
 </html>
