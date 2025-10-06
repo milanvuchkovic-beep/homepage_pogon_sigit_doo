@@ -14,7 +14,7 @@ function getStationIdFromUrl() {
 const CURRENT_STATION_ID = getStationIdFromUrl();
 
 // GLAVNI URL ZA SVE GOOGLE APPS SKRIPT WEB APPLIKACIJE:
-const APPS_SCRIPT_BASE_URL = 'https://script.google.com/macros/s/AKfycbzqN45kEhZsWu-zessd_1qvXvnLgGsnDQ0R5G81JScqt2zdW0edrYs8QZ_p50vXpNU/exec';
+const APPS_SCRIPT_BASE_URL = 'https://script.google.com/macros/s/AKfycbzzVwEs83KIH-M0ExKxifDBdCzvZNockcvhFUhFkZPQYMD1rOqmxIy90lOt4C1deHau';
 
 
 // Ažuriranje glavnog naslova na stranici čim se dokument učita
