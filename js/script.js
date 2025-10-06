@@ -35,19 +35,19 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function handleMenuClick(buttonId, originalText, pageName) {
     const dugme = document.getElementById(buttonId);
-    const statusDiv = document.getElementById('statusMessage');
-
-    if (dugme) {
+    // Tražimo element za statusnu poruku
+    const statusMessageElement = document.getElementById('statusMessage'); 
+    
+    if (dugme && statusMessageElement) {
         dugme.addEventListener('click', function() {
+            // Blokiranje dvostrukog klika
             if (dugme.classList.contains('loading-state')) {
                 return; 
             }
             
-            // 1. VIZUELNI FEEDBACK: Diskretan natpis pri vrhu (bez promene samog dugmeta)
-            statusDiv.textContent = `OTVARANJE: ${originalText}...`;
-            statusDiv.classList.add('visible'); 
-
-            // Dodajemo loading state samo da sprečimo dupli klik, ali ne menja izgled
+            // 1. VIZUELNI FEEDBACK: Prikazivanje statusne poruke
+            statusMessageElement.textContent = `OTVARANJE: ${originalText}...`;
+            statusMessageElement.classList.add('visible');
             dugme.classList.add('loading-state');
             
             // 2. KREIRANJE CILJNOG URL-a: BaseURL + ?page=XXX&id=PRXX
@@ -57,7 +57,12 @@ function handleMenuClick(buttonId, originalText, pageName) {
 
             // 3. STVARNO PREUSMERAVANJE (Otvaranje WebApp u istom prozoru)
             window.location.href = targetUrl; 
+            
+            // NAPOMENA: Sve ispod window.location.href je nedostupno.
         });
+    } else {
+        // Logovanje greške ako nedostaje dugme ili status element (za debagovanje)
+        console.error(`ERROR: Element with ID ${buttonId} or statusMessage not found.`);
     }
 }
 
@@ -79,4 +84,5 @@ handleMenuClick('playDugme', 'START/POČETAK', 'pocetak');
 handleMenuClick('stopDugme', 'STOP/KRAJ', 'kraj'); 
 handleMenuClick('zastojiDugme', 'ZASTOJ', 'zastoj');
 
-<script src="js/script.js?v=2.0"></script>
+
+<script src="js/script.js?v=2.1"></script>
