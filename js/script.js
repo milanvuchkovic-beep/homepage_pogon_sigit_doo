@@ -78,6 +78,8 @@ handleMenuClick('prijavaPauzaDugme', 'Prijava pauza', 'pauza');
 handleMenuClick('izmenaParametaraDugme', 'Izmena parametara', 'izmena_parametara');
 handleMenuClick('primopredajaDugme', 'Primopredaja smene (ŠEFOVI)', 'primopredaja');
 handleMenuClick('prijavaKvalitetaDugme', 'Prijava kvaliteta', 'paznja');
+// Portal za Šefove (sa novim ID-jem dugmeta)
+handleMenuClick('primopredajaDugmeSef', 'Primopredaja smene (ŠEFOVI)', 'primopredaja');
 
 // Akciona dugmad (zeleno/crveno/žuto)
 handleMenuClick('playDugme', 'START/POČETAK', 'pocetak'); 
