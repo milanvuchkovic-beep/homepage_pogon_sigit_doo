@@ -94,7 +94,7 @@ body {
 
 /* --- POZADINE PORTALA (Za sefovi.html i regleri.html) --- */
 .portal-background.regler-background {
-    /* OVDE MORATE UNETI VAŠ URL SLIKE: */
+    'https://i.postimg.cc/hG2bJhwg/Regler-zamena-alata-za-Pogon-io.png'
     background-image: url('https://i.postimg.cc/hG2bJhwg/Regler-zamena-alata-za-Pogon-io.png'); 
     
     /* Ovde možete podesiti filter ako je slika presvetla: */
