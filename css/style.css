@@ -92,6 +92,14 @@ body {
     margin-bottom: 30px;
 }
 
+/* Stil specifičan za Šefove */
+.portal-background.boss-background {
+    /* OBAVEZNO ZAMENITE OVU URL ADRESU SA PUTANJOM DO VAŠE SLIKE! */
+    background-image: url('https://i.postimg.cc/0jQNbB7V/Primopredaja-smene-apstraktno-pogon-io.png'); 
+    
+    /* Ovde možete dodati i filter ako je slika previše svetla: */
+    /* filter: brightness(0.8); */
+}
 /* --- START/STOP DUGMAD --- */
 .action-button { background: none; border: none; cursor: pointer; padding: 0; position: absolute; transition: transform 0.1s, color 0.3s;}
 .action-button i {
