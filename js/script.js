@@ -14,6 +14,7 @@ function getStationIdFromUrl() {
 const CURRENT_STATION_ID = getStationIdFromUrl();
 
 // GLAVNI URL ZA SVE GOOGLE APPS SKRIPT WEB APPLIKACIJE:
+// Važno: Mora završavati sa /exec
 const APPS_SCRIPT_BASE_URL = 'https://script.google.com/macros/s/AKfycbzzVwEs83KIH-M0ExKxifDBdCzvZNockcvhFUhFkZPQYMD1rOqmxIy90lOt4C1deHau/exec';
 
 
@@ -27,20 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ----------------------------------------------------------------------
-// 2. GLAVNA FUNKCIJA ZA OTVARANJE DUGMADI (PAGE PARAMETAR)
+// 2. GLAVNA FUNKCIJA ZA OTVARANJE DUGMADI (KONTROLA SLANJA ID-ja)
 // ----------------------------------------------------------------------
 
 /**
- * Obrađuje klik na dugme menija i kreira URL sa parametrima 'page' i 'id'.
+ * Obrađuje klik na dugme menija i kreira URL sa parametrima 'page' i Opciono 'id'.
+ * * @param {string} buttonId - HTML ID dugmeta.
+ * @param {string} originalText - Originalni tekst dugmeta za vizuelni feedback.
+ * @param {string} pageName - Page parametar koji se šalje Apps Script-u (npr. 'pocetak').
+ * @param {boolean} [includeId=true] - Da li treba uključiti &id=PRXX parametar. Podrazumevano je TRUE.
  */
-function handleMenuClick(buttonId, originalText, pageName) {
+function handleMenuClick(buttonId, originalText, pageName, includeId = true) {
     const dugme = document.getElementById(buttonId);
-    // Tražimo element za statusnu poruku
-    const statusMessageElement = document.getElementById('statusMessage'); 
+    const statusMessageElement = document.getElementById('statusMessage');
     
     if (dugme && statusMessageElement) {
         dugme.addEventListener('click', function() {
-            // Blokiranje dvostrukog klika
             if (dugme.classList.contains('loading-state')) {
                 return; 
             }
@@ -50,18 +53,24 @@ function handleMenuClick(buttonId, originalText, pageName) {
             statusMessageElement.classList.add('visible');
             dugme.classList.add('loading-state');
             
-            // 2. KREIRANJE CILJNOG URL-a: BaseURL + ?page=XXX&id=PRXX
-            const targetUrl = `${APPS_SCRIPT_BASE_URL}?page=${pageName}&id=${CURRENT_STATION_ID}`;
+            // 2. KREIRANJE CILJNOG URL-a
+            let targetUrl = `${APPS_SCRIPT_BASE_URL}?page=${pageName}`;
             
-            console.log(`Otvaranje: ${originalText} (Page: ${pageName}). URL: ${targetUrl}`);
+            // KLJUČNA LOGIKA: Dodavanje ID-ja samo ako je to potrebno
+            if (includeId) {
+                targetUrl += `&id=${CURRENT_STATION_ID}`;
+                console.log(`URL ukljucuje ID: ${CURRENT_STATION_ID}`);
+            } else {
+                // Dodaje se source parametar za reglere/sefove, koji Vaša Apps Script čita
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                targetUrl += `&source=${currentPage}`;
+                console.log(`URL NE ukljucuje ID. Koristi SOURCE: ${currentPage}`);
+            }
 
             // 3. STVARNO PREUSMERAVANJE (Otvaranje WebApp u istom prozoru)
             window.location.href = targetUrl; 
-            
-            // NAPOMENA: Sve ispod window.location.href je nedostupno.
         });
     } else {
-        // Logovanje greške ako nedostaje dugme ili status element (za debagovanje)
         console.error(`ERROR: Element with ID ${buttonId} or statusMessage not found.`);
     }
 }
@@ -71,20 +80,17 @@ function handleMenuClick(buttonId, originalText, pageName) {
 // 3. POVEZIVANJE DUGMADI SA ISPRAVNIM PAGE PARAMETRIMA
 // ----------------------------------------------------------------------
 
-// Dugmad iz glavnog menija (Operateri/Šefovi)
-handleMenuClick('prijavaSmeneDugme', 'Prijava smene (OPERATERI)', 'smena');
-handleMenuClick('prijavaSkartaDugme', 'Prijava škarta', 'proizvodnja_v2'); 
-handleMenuClick('prijavaPauzaDugme', 'Prijava pauza', 'pauza');
-handleMenuClick('izmenaParametaraDugme', 'Izmena parametara', 'izmena_parametara');
-handleMenuClick('primopredajaDugme', 'Primopredaja smene (ŠEFOVI)', 'primopredaja');
-handleMenuClick('prijavaKvalitetaDugme', 'Prijava kvaliteta', 'paznja');
-// Portal za Šefove (sa novim ID-jem dugmeta)
-handleMenuClick('primopredajaDugmeSef', 'Primopredaja smene (ŠEFOVI)', 'primopredaja');
-// Portal za Reglere
-handleMenuClick('reglerDugme', 'Regler aplikacija', 'alati'); 
+// *** DUGMAD OPERATERA (ZAHTEVAJU ID) ***
+handleMenuClick('prijavaSmeneDugme', 'Prijava smene (OPERATERI)', 'smena', true); 
+handleMenuClick('prijavaSkartaDugme', 'Prijava škarta', 'proizvodnja_v2', true); 
+handleMenuClick('prijavaPauzaDugme', 'Prijava pauza', 'pauza', true);
+handleMenuClick('izmenaParametaraDugme', 'Izmena parametara', 'izmena_parametara', true);
+handleMenuClick('prijavaKvalitetaDugme', 'Prijava kvaliteta', 'paznja', true); // Novo dugme
+handleMenuClick('playDugme', 'START/POČETAK', 'pocetak', true); 
+handleMenuClick('stopDugme', 'STOP/KRAJ', 'kraj', true); 
+handleMenuClick('zastojiDugme', 'ZASTOJ', 'zastoj', true);
 
-// Akciona dugmad (zeleno/crveno/žuto)
-handleMenuClick('playDugme', 'START/POČETAK', 'pocetak'); 
-handleMenuClick('stopDugme', 'STOP/KRAJ', 'kraj'); 
-handleMenuClick('zastojiDugme', 'ZASTOJ', 'zastoj');
-
+// *** DUGMAD ZA ŠEFOVE/REGLERE (NE ZAHTEVAJU ID) ***
+// Postavljamo cetvrti argument (includeId) na FALSE!
+handleMenuClick('primopredajaDugmeSef', 'Primopredaja smene (ŠEFOVI)', 'primopredaja', false); // sefovi.html
+handleMenuClick('reglerDugme', 'Regler aplikacija', 'alati', false); // regleri.html
