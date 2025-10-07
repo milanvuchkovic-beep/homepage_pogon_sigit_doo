@@ -92,6 +92,26 @@ body {
     margin-bottom: 30px;
 }
 
+/* --- POZADINE PORTALA (Za sefovi.html i regleri.html) --- */
+.portal-background {
+    /* Uklanja bilo kakav default background-color koji bi prešao preko slike */
+    background-color: transparent !important; 
+    
+    /* Osigurava vidljivost teksta na tamnoj pozadini */
+    color: #ffffff; 
+    
+    /* KLJUČNE LINIJE ZA SLIKU: */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Osigurava da se slika vidi (visina) */
+    min-height: 400px; 
+    
+    /* Tamni overlay za čitljivost teksta preko svetle pozadine */
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5); 
+}
+
 /* Stil specifičan za Šefove */
 .portal-background.boss-background {
     /* OBAVEZNO ZAMENITE OVU URL ADRESU SA PUTANJOM DO VAŠE SLIKE! */
