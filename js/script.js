@@ -129,3 +129,6 @@ connectButtonIfPresent('primopredajaDugmeSef', 'Primopredaja smene', 'primopreda
 // *** LOGIKA ZA PORTAL REGLERA (regleri.html) ***
 // Regleri NE ŠALJU ID
 connectButtonIfPresent('reglerDugme', 'Regler aplikacija', 'alati', false);
+
+// *** Planiranje
+connectButtonIfPresent('planiranjeDugme', 'Planiranje proizvodnje', 'planiranje', false);
