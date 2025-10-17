@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal za Korisnike</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- OSNOVNI STILOVI --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* --- LOGO I NAVIGACIONI BAR --- */
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-nav .left-side {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pogon-logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        #pogonLogoImg {
+            height: 30px;
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+
+        /* --- DISKRETAN NATPIS STATUSA --- */
+        .status-message {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffc107;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .status-message.visible {
+            opacity: 1;
+        }
+
+        /* --- POZADINA PORTALA --- */
+        .portal-background {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 400px;
+            color: #ffffff;
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+        }
+
+        .portal-background.korisnici-background {
+            background-image: url('https://i.postimg.cc/vT92MPy5/Planiranje-u-kancelariji-za-Pogon-io.png');
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- NASLOV --- */
+        .main-title {
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            margin-bottom: 30px;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        /* --- SEKCIJA ZA DUGME --- */
+        .supervisor-section {
+            padding: 15px 20px 30px;
+            background-color: transparent;
+            text-align: center;
+        }
+
+        .supervisor-button {
+            width: 90%;
+            max-width: 600px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin: 0 auto 20px;
+            display: block;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .supervisor-button i {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+
+        .supervisor-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .supervisor-button:active {
+            transform: translateY(0);
+        }
+
+        /* --- IFRAME KONTEJNER --- */
+        .iframe-wrapper {
+            display: none;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .iframe-wrapper.active {
+            display: block;
+        }
+
+        .iframe-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .close-iframe-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            line-height: 1;
+        }
+
+        .close-iframe-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .iframe-content {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+
+        /* --- TABLET PRILAGOĐAVANJE --- */
+        @media (min-width: 768px) {
+            .supervisor-button {
+                width: 60%;
+                padding: 30px 15px;
+                font-size: 24px;
+            }
+            
+            .main-title {
+                font-size: 56px;
+            }
+            
+            .iframe-wrapper {
+                margin: 30px auto;
+                max-width: 1200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Diskretan statusni natpis -->
+    <div id="statusMessage" class="status-message"></div>
+
+    <!-- Navigacija -->
+    <header class="top-nav">
+        <div class="left-side">
+            <div class="pogon-logo">
+                <img id="pogonLogoImg" src="https://i.postimg.cc/L6KLbH84/Pogon-io-LOGO-vertical.png" alt="Pogon.io Logo">
+                Pogon.io
+            </div>
+        </div>
+    </header>
+
+    <!-- Glavni sadržaj sa pozadinom -->
+    <div class="content-wrapper portal-background korisnici-background">
+        
+        <h1 class="main-title">Portal za Korisnike</h1>
+        
+        <div class="supervisor-section">
+            <button class="supervisor-button" id="korisniciDugme">
+                <i class="fas fa-user-plus"></i> Upravljanje korisnicima
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Iframe kontejner -->
+    <div class="iframe-wrapper" id="iframeWrapper">
+        <div class="iframe-header">
+            <span>Upravljanje korisnicima</span>
+            <button class="close-iframe-btn" id="closeIframe">×</button>
+        </div>
+        <iframe id="webappFrame" class="iframe-content"></iframe>
+    </div>
+
+    <script>
+        // URL vaše Google Apps Script webapp - ZAMENITE OVO!
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzaJTI4siLOc_VbXKoyF4I93SWfmkLPZVOQTreSZlgkPOfh2Cp3NrcpzOi9UMCnRDlh/exec';
+
+        // Elementi
+        const statusMessage = document.getElementById('statusMessage');
+        const korisniciBtn = document.getElementById('korisniciDugme');
+        const iframeWrapper = document.getElementById('iframeWrapper');
+        const webappFrame = document.getElementById('webappFrame');
+        const closeBtn = document.getElementById('closeIframe');
+
+        // Funkcija za prikaz statusne poruke
+        function showStatus(message, duration = 2000) {
+            statusMessage.textContent = message;
+            statusMessage.classList.add('visible');
+            
+            setTimeout(() => {
+                statusMessage.classList.remove('visible');
+            }, duration);
+        }
+
+        // Klik na dugme "Upravljanje korisnicima"
+        korisniciBtn.addEventListener('click', function() {
+            showStatus('OTVARANJE...');
+            
+            // Učitaj webapp u iframe
+            webappFrame.src = WEBAPP_URL;
+            
+            // Prikaži iframe nakon kratke pauze
+            setTimeout(() => {
+                iframeWrapper.classList.add('active');
+                // Skroluj do iframe-a
+                iframeWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 500);
+        });
+
+        // Zatvaranje iframe-a
+        closeBtn.addEventListener('click', function() {
+            iframeWrapper.classList.remove('active');
+            // Očisti iframe nakon animacije
+            setTimeout(() => {
+                webappFrame.src = '';
+            }, 300);
+        });
+
+        // Opciono: Zatvori iframe klikom na ESC taster
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && iframeWrapper.classList.contains('active')) {
+                closeBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
