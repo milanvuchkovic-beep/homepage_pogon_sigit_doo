@@ -140,57 +140,106 @@
             transform: translateY(0);
         }
 
-        /* --- IFRAME KONTEJNER --- */
-        .iframe-wrapper {
+        /* --- IFRAME KONTEJNER - FULLSCREEN MODAL --- */
+        .iframe-modal {
             display: none;
-            margin: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .iframe-wrapper.active {
-            display: block;
+        .iframe-modal.active {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
         }
 
-        .iframe-header {
+        .iframe-modal-header {
             background-color: #007bff;
             color: #fff;
-            padding: 15px 20px;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
-            font-size: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .close-iframe-btn {
+        .iframe-modal-title {
+            font-weight: 600;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .close-modal-btn {
             background-color: rgba(255, 255, 255, 0.2);
             border: none;
             color: #fff;
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
             line-height: 1;
         }
 
-        .close-iframe-btn:hover {
+        .close-modal-btn:hover {
             background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
         }
 
-        .iframe-content {
+        .close-modal-btn:active {
+            transform: scale(0.95);
+        }
+
+        .iframe-modal-content {
+            flex: 1;
             width: 100%;
-            height: 600px;
             border: none;
             display: block;
+            background-color: #fff;
+        }
+
+        /* Loading spinner za iframe */
+        .iframe-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 18px;
+            display: none;
+        }
+
+        .iframe-loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* --- TABLET PRILAGOĐAVANJE --- */
@@ -240,13 +289,33 @@
 
     </div>
 
+    <!-- Fullscreen Modal za Webapp -->
+    <div class="iframe-modal" id="iframeModal">
+        <div class="iframe-modal-header">
+            <div class="iframe-modal-title">
+                <i class="fas fa-user-cog"></i>
+                <span>Upravljanje korisnicima</span>
+            </div>
+            <button class="close-modal-btn" id="closeModal" title="Zatvori (ESC)">×</button>
+        </div>
+        <div class="iframe-loading" id="iframeLoading">
+            <div class="spinner"></div>
+            <div>Učitavanje...</div>
+        </div>
+        <iframe id="webappFrame" class="iframe-modal-content"></iframe>
+    </div>
+
     <script>
         // URL vaše Google Apps Script webapp - ZAMENITE OVO!
-        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzaJTI4siLOc_VbXKoyF4I93SWfmkLPZVOQTreSZlgkPOfh2Cp3NrcpzOi9UMCnRDlh/exec';
+        const WEBAPP_URL = 'https://script.google.com/macros/s/YOUR_WEBAPP_ID/exec';
 
         // Elementi
         const statusMessage = document.getElementById('statusMessage');
         const korisniciBtn = document.getElementById('korisniciDugme');
+        const iframeModal = document.getElementById('iframeModal');
+        const webappFrame = document.getElementById('webappFrame');
+        const closeModalBtn = document.getElementById('closeModal');
+        const iframeLoading = document.getElementById('iframeLoading');
 
         // Funkcija za prikaz statusne poruke
         function showStatus(message, duration = 2000) {
@@ -258,27 +327,58 @@
             }, duration);
         }
 
-        // Klik na dugme "Upravljanje korisnicima"
-        korisniciBtn.addEventListener('click', function() {
+        // Otvori modal sa webapp-om
+        function openWebapp() {
             showStatus('OTVARANJE...');
             
-            // Otvori webapp u novom popup prozoru
+            // Prikaži modal
+            iframeModal.classList.add('active');
+            iframeLoading.classList.add('active');
+            
+            // Učitaj webapp u iframe
+            webappFrame.src = WEBAPP_URL;
+            
+            // Sakrij loading kada se iframe učita
+            webappFrame.onload = function() {
+                setTimeout(() => {
+                    iframeLoading.classList.remove('active');
+                }, 500);
+            };
+            
+            // Blokiraj scroll na body
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Zatvori modal
+        function closeWebapp() {
+            iframeModal.classList.remove('active');
+            
+            // Vraćanje scroll-a
+            document.body.style.overflow = '';
+            
+            // Očisti iframe nakon zatvaranja
             setTimeout(() => {
-                const width = 1000;
-                const height = 700;
-                const left = (screen.width - width) / 2;
-                const top = (screen.height - height) / 2;
-                
-                const popup = window.open(
-                    WEBAPP_URL,
-                    'KorisniciWebApp',
-                    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`
-                );
-                
-                if (!popup || popup.closed || typeof popup.closed == 'undefined') {
-                    alert('Popup blokiran! Molimo omogućite popup prozore za ovaj sajt.');
-                }
-            }, 500);
+                webappFrame.src = '';
+                iframeLoading.classList.remove('active');
+            }, 300);
+        }
+
+        // Event listeners
+        korisniciBtn.addEventListener('click', openWebapp);
+        closeModalBtn.addEventListener('click', closeWebapp);
+
+        // Zatvori sa ESC tasterom
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && iframeModal.classList.contains('active')) {
+                closeWebapp();
+            }
+        });
+
+        // Zatvori klikom van iframe-a (na tamnu pozadinu)
+        iframeModal.addEventListener('click', function(e) {
+            if (e.target === iframeModal) {
+                closeWebapp();
+            }
         });
     </script>
 </body>
