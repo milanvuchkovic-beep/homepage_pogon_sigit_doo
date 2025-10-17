@@ -240,25 +240,13 @@
 
     </div>
 
-    <!-- Iframe kontejner -->
-    <div class="iframe-wrapper" id="iframeWrapper">
-        <div class="iframe-header">
-            <span>Upravljanje korisnicima</span>
-            <button class="close-iframe-btn" id="closeIframe">×</button>
-        </div>
-        <iframe id="webappFrame" class="iframe-content"></iframe>
-    </div>
-
     <script>
         // URL vaše Google Apps Script webapp - ZAMENITE OVO!
-        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzaJTI4siLOc_VbXKoyF4I93SWfmkLPZVOQTreSZlgkPOfh2Cp3NrcpzOi9UMCnRDlh/exec';
+        const WEBAPP_URL = 'https://script.google.com/macros/s/YOUR_WEBAPP_ID/exec';
 
         // Elementi
         const statusMessage = document.getElementById('statusMessage');
         const korisniciBtn = document.getElementById('korisniciDugme');
-        const iframeWrapper = document.getElementById('iframeWrapper');
-        const webappFrame = document.getElementById('webappFrame');
-        const closeBtn = document.getElementById('closeIframe');
 
         // Funkcija za prikaz statusne poruke
         function showStatus(message, duration = 2000) {
@@ -274,31 +262,23 @@
         korisniciBtn.addEventListener('click', function() {
             showStatus('OTVARANJE...');
             
-            // Učitaj webapp u iframe
-            webappFrame.src = WEBAPP_URL;
-            
-            // Prikaži iframe nakon kratke pauze
+            // Otvori webapp u novom popup prozoru
             setTimeout(() => {
-                iframeWrapper.classList.add('active');
-                // Skroluj do iframe-a
-                iframeWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const width = 1000;
+                const height = 700;
+                const left = (screen.width - width) / 2;
+                const top = (screen.height - height) / 2;
+                
+                const popup = window.open(
+                    WEBAPP_URL,
+                    'KorisniciWebApp',
+                    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`
+                );
+                
+                if (!popup || popup.closed || typeof popup.closed == 'undefined') {
+                    alert('Popup blokiran! Molimo omogućite popup prozore za ovaj sajt.');
+                }
             }, 500);
-        });
-
-        // Zatvaranje iframe-a
-        closeBtn.addEventListener('click', function() {
-            iframeWrapper.classList.remove('active');
-            // Očisti iframe nakon animacije
-            setTimeout(() => {
-                webappFrame.src = '';
-            }, 300);
-        });
-
-        // Opciono: Zatvori iframe klikom na ESC taster
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && iframeWrapper.classList.contains('active')) {
-                closeBtn.click();
-            }
         });
     </script>
 </body>
