@@ -132,3 +132,7 @@ connectButtonIfPresent('reglerDugme', 'Regler aplikacija', 'alati', false);
 
 // *** Planiranje
 connectButtonIfPresent('planiranjeDugme', 'Planiranje proizvodnje', 'planiranje', false);
+
+// *** LOGIKA ZA PORTAL ARTIKLI (artikli.html) ***
+// Artikli NE SMEJU da šalju ID, samo page parametar
+connectButtonIfPresent('ArtikliDugme', 'Unosi proizvoda i alata', 'artikli_editor', false);
