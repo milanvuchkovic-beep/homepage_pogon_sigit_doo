@@ -91,7 +91,8 @@
             transform: translate(-50%, -50%);
             color: #fff;
             font-size: 18px;
-            display: none;
+            text-align: center;
+            z-index: 10;
         }
 
         .iframe-loading.active {
@@ -99,18 +100,131 @@
         }
 
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #fff;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #fff;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            width: 60px;
+            height: 60px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            font-size: 14px;
+            opacity: 0.8;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* --- RESPONSIVE DESIGN ZA MOBILNE --- */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding-top: 30px !important;
+                max-width: 100% !important;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .main-title {
+                font-size: 28px !important;
+                margin-bottom: 30px !important;
+            }
+
+            .supervisor-button {
+                width: 100% !important;
+                max-width: none !important;
+                padding: 18px 15px !important;
+                font-size: 16px !important;
+            }
+
+            .supervisor-button i {
+                font-size: 24px !important;
+                margin-right: 10px !important;
+            }
+
+            .iframe-modal-header {
+                padding: 12px 15px;
+            }
+
+            .iframe-modal-title {
+                font-size: 16px;
+                gap: 8px;
+            }
+
+            .iframe-modal-title i {
+                font-size: 18px;
+            }
+
+            .close-modal-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 24px;
+            }
+
+            .spinner {
+                width: 50px;
+                height: 50px;
+                border-width: 4px;
+            }
+
+            .loading-text {
+                font-size: 18px;
+            }
+
+            .loading-subtext {
+                font-size: 13px;
+            }
+
+            /* Optimizacija za status poruku */
+            .status-message {
+                font-size: 13px;
+                padding: 6px 12px;
+                top: 60px;
+            }
+
+            /* Optimizacija za logo */
+            #pogonLogoImg {
+                height: 25px;
+            }
+
+            .pogon-logo {
+                font-size: 20px;
+            }
+
+            .top-nav {
+                padding: 8px 15px;
+            }
+        }
+
+        /* Za veoma male ekrane (phones < 375px) */
+        @media (max-width: 375px) {
+            .main-title {
+                font-size: 24px !important;
+            }
+
+            .supervisor-button {
+                font-size: 15px !important;
+                padding: 16px 12px !important;
+            }
+
+            .iframe-modal-title {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -149,9 +263,10 @@
             </div>
             <button class="close-modal-btn" id="closeModal" title="Zatvori (ESC)">×</button>
         </div>
-        <div class="iframe-loading" id="iframeLoading">
+        <div class="iframe-loading active" id="iframeLoading">
             <div class="spinner"></div>
-            <div>Učitavanje...</div>
+            <div class="loading-text">Učitavanje aplikacije...</div>
+            <div class="loading-subtext">Molimo sačekajte</div>
         </div>
         <iframe 
             id="webappFrame" 
@@ -186,24 +301,33 @@
         function openWebapp() {
             showStatus('OTVARANJE...');
             
-            // Prikaži modal
+            // Prikaži modal sa loading-om odmah
             iframeModal.classList.add('active');
             iframeLoading.classList.add('active');
             
             // Učitaj webapp u iframe
             webappFrame.src = WEBAPP_URL;
             
-            // Sakrij loading kada se iframe učita
-            let loadingTimeout = setTimeout(() => {
-                iframeLoading.classList.remove('active');
-            }, 3000);
+            // Minimalno vreme prikaza loading-a (1.5 sekundi)
+            const minLoadTime = 1500;
+            const startTime = Date.now();
             
+            // Sakrij loading kada se iframe učita ALI tek posle minimuma
             webappFrame.onload = function() {
-                clearTimeout(loadingTimeout);
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+                
                 setTimeout(() => {
                     iframeLoading.classList.remove('active');
-                }, 500);
+                }, remainingTime);
             };
+            
+            // Sigurnosni timeout - sakrij nakon 10 sekundi čak i ako se ne učita
+            setTimeout(() => {
+                if (iframeLoading.classList.contains('active')) {
+                    iframeLoading.classList.remove('active');
+                }
+            }, 10000);
             
             // Blokiraj scroll na body
             document.body.style.overflow = 'hidden';
@@ -219,7 +343,7 @@
             // Očisti iframe nakon zatvaranja
             setTimeout(() => {
                 webappFrame.src = '';
-                iframeLoading.innerHTML = '<div class="spinner"></div><div>Učitavanje...</div>';
+                iframeLoading.innerHTML = '<div class="spinner"></div><div class="loading-text">Učitavanje aplikacije...</div><div class="loading-subtext">Molimo sačekajte</div>';
                 iframeLoading.classList.remove('active');
             }, 300);
         }
