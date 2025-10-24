@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GP12 Portal</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- POVEZIVANJE EKSTERNOG CSS FAJLA -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Diskretan statusni natpis za "OTVARANJE..." -->
+    <div id="statusMessage" class="status-message"></div>
+    
+    <header class="top-nav">
+        <div class="left-side">
+            <div class="pogon-logo">
+                <img id="pogonLogoImg" src="https://i.postimg.cc/L6KLbH84/Pogon-io-LOGO-vertical.png" alt="Pogon.io Logo">
+                Pogon.io
+            </div>
+        </div>
+    </header>
+    
+    <!-- GP12 Portal sa pozadinskom slikom -->
+    <div class="content-wrapper portal-background gp12-background">
+        
+        <h1 class="main-title" style="color: #ffffff; text-align: center; margin-bottom: 50px; font-size: 42px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">GP12 Portal</h1>
+        
+        <!-- Tri dugmeta za GP12 -->
+        <div class="supervisor-section" style="display: flex; flex-direction: column; gap: 20px; align-items: center; padding: 20px;">
+            
+            <!-- Firewall dugme -->
+            <button class="supervisor-button gp12-button" id="firewallDugme">
+                <i class="fas fa-shield-alt"></i> Firewall
+            </button>
+            
+            <!-- Dashboard dugme -->
+            <button class="supervisor-button gp12-button" id="dashboardDugme">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </button>
+            
+            <!-- Email dugme -->
+            <button class="supervisor-button gp12-button" id="emailDugme">
+                <i class="fas fa-envelope"></i> Email
+            </button>
+            
+        </div>
+    </div>
+    
+    <!-- JavaScript za otvaranje linkova -->
+    <script>
+        const GP12_BASE_URL = 'https://script.google.com/macros/s/AKfycbyaYuxYLVtJLIGZwgGdbggY_a1rNMoQXWXrjCuTACUtT1Y_HUtVPuAIZGUnEGqL55Ac/exec';
+        
+        const statusMessage = document.getElementById('statusMessage');
+        
+        // Funkcija za prikaz statusne poruke
+        function showStatus(message, duration = 2000) {
+            statusMessage.textContent = message;
+            statusMessage.classList.add('visible');
+            
+            setTimeout(() => {
+                statusMessage.classList.remove('visible');
+            }, duration);
+        }
+        
+        // Funkcija za otvaranje stranice
+        function openGP12Page(pageName, buttonText) {
+            showStatus(`OTVARANJE: ${buttonText}...`);
+            
+            setTimeout(() => {
+                const targetUrl = `${GP12_BASE_URL}?page=${pageName}`;
+                window.location.href = targetUrl;
+            }, 500);
+        }
+        
+        // Event listeners za dugmad
+        document.getElementById('firewallDugme').addEventListener('click', function() {
+            openGP12Page('firewall', 'Firewall');
+        });
+        
+        document.getElementById('dashboardDugme').addEventListener('click', function() {
+            openGP12Page('dashboard', 'Dashboard');
+        });
+        
+        document.getElementById('emailDugme').addEventListener('click', function() {
+            openGP12Page('email', 'Email');
+        });
+    </script>
+</body>
+</html>
