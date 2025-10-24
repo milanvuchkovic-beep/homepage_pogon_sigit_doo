@@ -297,7 +297,7 @@
             }, duration);
         }
 
-        // Otvori modal sa webapp-om
+         // Otvori modal sa webapp-om
         function openWebapp() {
             showStatus('OTVARANJE...');
             
@@ -308,26 +308,10 @@
             // Učitaj webapp u iframe
             webappFrame.src = WEBAPP_URL;
             
-            // Minimalno vreme prikaza loading-a (1.5 sekundi)
-            const minLoadTime = 1500;
-            const startTime = Date.now();
-            
-            // Sakrij loading kada se iframe učita ALI tek posle minimuma
-            webappFrame.onload = function() {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
-                
-                setTimeout(() => {
-                    iframeLoading.classList.remove('active');
-                }, remainingTime);
-            };
-            
-            // Sigurnosni timeout - sakrij nakon 10 sekundi čak i ako se ne učita
+            // Forsiraj sakrivanje loading-a nakon 3 sekunde
             setTimeout(() => {
-                if (iframeLoading.classList.contains('active')) {
-                    iframeLoading.classList.remove('active');
-                }
-            }, 10000);
+                iframeLoading.classList.remove('active');
+            }, 3000);
             
             // Blokiraj scroll na body
             document.body.style.overflow = 'hidden';
