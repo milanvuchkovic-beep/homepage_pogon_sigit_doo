@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GP12 Portal</title>
+    <title>Portal za alate i delove</title>
     
-    <!-- Font Awesome -->
+    <!-- Link ka Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- POVEZIVANJE EKSTERNOG CSS FAJLA -->
@@ -84,11 +84,6 @@
             background-color: #fff;
         }
 
-        /* Dozvole za iframe - kamera, mikrofon, itd. */
-        iframe[allow] {
-            allow: camera *; microphone *; geolocation *;
-        }
-
         .iframe-loading {
             position: absolute;
             top: 50%;
@@ -96,7 +91,8 @@
             transform: translate(-50%, -50%);
             color: #fff;
             font-size: 18px;
-            display: none;
+            text-align: center;
+            z-index: 10;
         }
 
         .iframe-loading.active {
@@ -104,18 +100,131 @@
         }
 
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #fff;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #fff;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            width: 60px;
+            height: 60px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            font-size: 14px;
+            opacity: 0.8;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* --- RESPONSIVE DESIGN ZA MOBILNE --- */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding-top: 30px !important;
+                max-width: 100% !important;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .main-title {
+                font-size: 28px !important;
+                margin-bottom: 30px !important;
+            }
+
+            .supervisor-button {
+                width: 100% !important;
+                max-width: none !important;
+                padding: 18px 15px !important;
+                font-size: 16px !important;
+            }
+
+            .supervisor-button i {
+                font-size: 24px !important;
+                margin-right: 10px !important;
+            }
+
+            .iframe-modal-header {
+                padding: 12px 15px;
+            }
+
+            .iframe-modal-title {
+                font-size: 16px;
+                gap: 8px;
+            }
+
+            .iframe-modal-title i {
+                font-size: 18px;
+            }
+
+            .close-modal-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 24px;
+            }
+
+            .spinner {
+                width: 50px;
+                height: 50px;
+                border-width: 4px;
+            }
+
+            .loading-text {
+                font-size: 18px;
+            }
+
+            .loading-subtext {
+                font-size: 13px;
+            }
+
+            /* Optimizacija za status poruku */
+            .status-message {
+                font-size: 13px;
+                padding: 6px 12px;
+                top: 60px;
+            }
+
+            /* Optimizacija za logo */
+            #pogonLogoImg {
+                height: 25px;
+            }
+
+            .pogon-logo {
+                font-size: 20px;
+            }
+
+            .top-nav {
+                padding: 8px 15px;
+            }
+        }
+
+        /* Za veoma male ekrane (phones < 375px) */
+        @media (max-width: 375px) {
+            .main-title {
+                font-size: 24px !important;
+            }
+
+            .supervisor-button {
+                font-size: 15px !important;
+                padding: 16px 12px !important;
+            }
+
+            .iframe-modal-title {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -132,29 +241,16 @@
         </div>
     </header>
     
-    <!-- GP12 Portal sa pozadinskom slikom -->
-    <div class="content-wrapper portal-background gp12-background">
+    <!-- Portal za artikle sa pozadinskom slikom -->
+    <div class="content-wrapper portal-background artikli-background" style="max-width: 600px; padding-top: 50px;">
         
-        <h1 class="main-title" style="color: #ffffff; text-align: center; margin-bottom: 50px; font-size: 42px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">GP12 Portal</h1>
+        <h1 class="main-title" style="color: #ffffff; text-align: center; margin-bottom: 40px; font-size: 36px; text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">Portal za alate i delove</h1>
         
-        <!-- Tri dugmeta za GP12 -->
-        <div class="supervisor-section" style="display: flex; flex-direction: column; gap: 20px; align-items: center; padding: 20px;">
-            
-            <!-- Firewall dugme -->
-            <button class="supervisor-button gp12-button" id="firewallDugme">
-                <i class="fas fa-shield-alt"></i> Firewall
+        <!-- JEDNO DUGME -->
+        <div class="supervisor-section">
+            <button class="supervisor-button" id="ArtikliDugme">
+                <i class="fas fa-tools"></i> Artikli aplikacija
             </button>
-            
-            <!-- Dashboard dugme -->
-            <button class="supervisor-button gp12-button" id="dashboardDugme">
-                <i class="fas fa-chart-line"></i> Dashboard
-            </button>
-            
-            <!-- Email dugme -->
-            <button class="supervisor-button gp12-button" id="emailDugme">
-                <i class="fas fa-envelope"></i> Email
-            </button>
-            
         </div>
     </div>
     
@@ -162,14 +258,15 @@
     <div class="iframe-modal" id="iframeModal">
         <div class="iframe-modal-header">
             <div class="iframe-modal-title">
-                <i id="modalIcon" class="fas fa-shield-alt"></i>
-                <span id="modalTitle">GP12</span>
+                <i class="fas fa-tools"></i>
+                <span>Artikli aplikacija</span>
             </div>
             <button class="close-modal-btn" id="closeModal" title="Zatvori (ESC)">×</button>
         </div>
-        <div class="iframe-loading" id="iframeLoading">
+        <div class="iframe-loading active" id="iframeLoading">
             <div class="spinner"></div>
-            <div>Učitavanje...</div>
+            <div class="loading-text">Učitavanje aplikacije...</div>
+            <div class="loading-subtext">Molimo sačekajte</div>
         </div>
         <iframe 
             id="webappFrame" 
@@ -178,18 +275,18 @@
         ></iframe>
     </div>
     
-    <!-- JavaScript za otvaranje u iframe-u -->
     <script>
-        const GP12_BASE_URL = 'https://script.google.com/macros/s/AKfycbyaYuxYLVtJLIGZwgGdbggY_a1rNMoQXWXrjCuTACUtT1Y_HUtVPuAIZGUnEGqL55Ac/exec';
-        
+        // URL vaše Google Apps Script webapp za artikle
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzzVwEs83KIH-M0ExKxifDBdCzvZNockcvhFUhFkZPQYMD1rOqmxIy90lOt4C1deHau/exec?page=artikli_editor';
+
+        // Elementi
         const statusMessage = document.getElementById('statusMessage');
+        const artikliBtn = document.getElementById('ArtikliDugme');
         const iframeModal = document.getElementById('iframeModal');
         const webappFrame = document.getElementById('webappFrame');
         const closeModalBtn = document.getElementById('closeModal');
         const iframeLoading = document.getElementById('iframeLoading');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalIcon = document.getElementById('modalIcon');
-        
+
         // Funkcija za prikaz statusne poruke
         function showStatus(message, duration = 2000) {
             statusMessage.textContent = message;
@@ -199,75 +296,70 @@
                 statusMessage.classList.remove('visible');
             }, duration);
         }
-        
-        // Funkcija za otvaranje stranice u iframe-u
-        function openGP12Page(pageName, buttonText, iconClass) {
-            showStatus(`OTVARANJE: ${buttonText}...`);
+
+        // Otvori modal sa webapp-om
+        function openWebapp() {
+            showStatus('OTVARANJE...');
             
-            // Postavi naslov i ikonu u modal header-u
-            modalTitle.textContent = buttonText;
-            modalIcon.className = `fas ${iconClass}`;
-            
-            // Prikaži modal
+            // Prikaži modal sa loading-om odmah
             iframeModal.classList.add('active');
             iframeLoading.classList.add('active');
             
             // Učitaj webapp u iframe
-            const targetUrl = `${GP12_BASE_URL}?page=${pageName}`;
-            webappFrame.src = targetUrl;
+            webappFrame.src = WEBAPP_URL;
             
-            // Sakrij loading kada se iframe učita
-            let loadingTimeout = setTimeout(() => {
-                iframeLoading.classList.remove('active');
-            }, 3000);
+            // Minimalno vreme prikaza loading-a (1.5 sekundi)
+            const minLoadTime = 1500;
+            const startTime = Date.now();
             
+            // Sakrij loading kada se iframe učita ALI tek posle minimuma
             webappFrame.onload = function() {
-                clearTimeout(loadingTimeout);
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+                
                 setTimeout(() => {
                     iframeLoading.classList.remove('active');
-                }, 500);
+                }, remainingTime);
             };
+            
+            // Sigurnosni timeout - sakrij nakon 10 sekundi čak i ako se ne učita
+            setTimeout(() => {
+                if (iframeLoading.classList.contains('active')) {
+                    iframeLoading.classList.remove('active');
+                }
+            }, 10000);
             
             // Blokiraj scroll na body
             document.body.style.overflow = 'hidden';
         }
-        
-        // Funkcija za zatvaranje iframe-a
+
+        // Zatvori modal
         function closeWebapp() {
             iframeModal.classList.remove('active');
+            
+            // Vraćanje scroll-a
             document.body.style.overflow = '';
             
+            // Očisti iframe nakon zatvaranja
             setTimeout(() => {
                 webappFrame.src = '';
-                iframeLoading.innerHTML = '<div class="spinner"></div><div>Učitavanje...</div>';
+                iframeLoading.innerHTML = '<div class="spinner"></div><div class="loading-text">Učitavanje aplikacije...</div><div class="loading-subtext">Molimo sačekajte</div>';
                 iframeLoading.classList.remove('active');
             }, 300);
         }
-        
-        // Event listeners za dugmad
-        document.getElementById('firewallDugme').addEventListener('click', function() {
-            openGP12Page('firewall', 'Firewall', 'fa-shield-alt');
-        });
-        
-        document.getElementById('dashboardDugme').addEventListener('click', function() {
-            openGP12Page('dashboard', 'Dashboard', 'fa-chart-line');
-        });
-        
-        document.getElementById('emailDugme').addEventListener('click', function() {
-            openGP12Page('email', 'Email', 'fa-envelope');
-        });
-        
-        // Zatvori modal
+
+        // Event listeners
+        artikliBtn.addEventListener('click', openWebapp);
         closeModalBtn.addEventListener('click', closeWebapp);
-        
+
         // Zatvori sa ESC tasterom
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && iframeModal.classList.contains('active')) {
                 closeWebapp();
             }
         });
-        
-        // Zatvori klikom van iframe-a
+
+        // Zatvori klikom van iframe-a (na tamnu pozadinu)
         iframeModal.addEventListener('click', function(e) {
             if (e.target === iframeModal) {
                 closeWebapp();
