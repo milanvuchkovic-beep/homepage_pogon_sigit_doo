@@ -118,6 +118,12 @@ body {
     background-image: url('https://i.postimg.cc/hG2bJhwg/Regler-zamena-alata-za-Pogon-io.png');
 }
 
+/* Stil specifičan za Alate i delove (Artikli Portal) */
+.portal-background.artikli-background {
+    /* ZAMENITE SA VAŠIM URL-om za Reglere */
+    background-image: url('https://i.postimg.cc/gk308rJx/Portal-Artikli.jpg');
+}
+
 /* --- START/STOP DUGMAD --- */
 .action-button { background: none; border: none; cursor: pointer; padding: 0; position: absolute; transition: transform 0.1s, color 0.3s;}
 .action-button i {
