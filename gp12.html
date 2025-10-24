@@ -84,6 +84,11 @@
             background-color: #fff;
         }
 
+        /* Dozvole za iframe - kamera, mikrofon, itd. */
+        iframe[allow] {
+            allow: camera *; microphone *; geolocation *;
+        }
+
         .iframe-loading {
             position: absolute;
             top: 50%;
@@ -166,7 +171,12 @@
             <div class="spinner"></div>
             <div>Učitavanje...</div>
         </div>
-        <iframe id="webappFrame" class="iframe-modal-content"></iframe>
+        <iframe 
+            id="webappFrame" 
+            class="iframe-modal-content"
+            allow="camera; microphone; geolocation; fullscreen"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
+        ></iframe>
     </div>
     
     <!-- JavaScript za otvaranje u iframe-u -->
