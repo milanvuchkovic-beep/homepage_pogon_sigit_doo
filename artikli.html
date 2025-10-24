@@ -83,7 +83,7 @@
             display: block;
             background-color: #fff;
         }
-
+        
         .iframe-loading {
             position: absolute;
             top: 50%;
@@ -93,6 +93,10 @@
             font-size: 18px;
             text-align: center;
             z-index: 10;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.7); /* DODAJ OVO */
+            padding: 30px 40px; /* DODAJ OVO */
+            border-radius: 12px; /* DODAJ OVO */
         }
 
         .iframe-loading.active {
@@ -301,19 +305,16 @@
         function openWebapp() {
             showStatus('OTVARANJE...');
             
-            // Prikaži modal sa loading-om odmah
             iframeModal.classList.add('active');
             iframeLoading.classList.add('active');
             
-            // Učitaj webapp u iframe
             webappFrame.src = WEBAPP_URL;
             
-            // Forsiraj sakrivanje loading-a nakon 3 sekunde
+            // JEDNOSTAVNO - sakrij nakon 2 sekunde
             setTimeout(() => {
                 iframeLoading.classList.remove('active');
-            }, 3000);
+            }, 2000);
             
-            // Blokiraj scroll na body
             document.body.style.overflow = 'hidden';
         }
 
