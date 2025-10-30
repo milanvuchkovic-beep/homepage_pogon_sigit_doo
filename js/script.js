@@ -116,7 +116,7 @@ connectButtonIfPresent('prijavaPauzaDugme', 'Prijava pauza', 'pauza', true);
 connectButtonIfPresent('izmenaParametaraDugme', 'Izmena parametara', 'izmena_parametara', true);
 connectButtonIfPresent('prijavaKvalitetaDugme', 'Prijava kvaliteta', 'paznja', true);
 
-connectButtonIfPresent('playDugme', 'START/POČETAK', 'pocetak', true); 
+connectButtonIfPresent('playDugme', 'START/POČETAK', 'start', true); 
 connectButtonIfPresent('stopDugme', 'STOP/KRAJ', 'kraj', true); 
 connectButtonIfPresent('zastojiDugme', 'ZASTOJ', 'zastoj', true);
 
