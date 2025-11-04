@@ -267,7 +267,7 @@
             }, duration);
         }
 
-        /**
+         /**
          * Otvara web aplikaciju u modalnom prozoru.
          */
         function openWebapp(pageName, buttonText, iconClass, includeId = true) {
@@ -293,24 +293,14 @@
             // Učitaj webapp u iframe
             webappFrame.src = targetUrl;
             
-            // Minimalno vreme prikaza loading-a (1.5 sekundi)
-            const minLoadTime = 1500;
-            const startTime = Date.now();
-            
-            // Sakrij loading kada se iframe učita
-            webappFrame.onload = function() {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
-                
-                setTimeout(() => {
-                    iframeLoading.classList.remove('active');
-                }, remainingTime);
-            };
+            // Fiksno vreme učitavanja - tačno 2 sekunde
+            setTimeout(() => {
+                iframeLoading.classList.remove('active');
+            }, 2000);
             
             // Blokiraj scroll na body
             document.body.style.overflow = 'hidden';
         }
-
         /**
          * Zatvara modalni prozor.
          */
