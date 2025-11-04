@@ -265,12 +265,8 @@ body {
 .dashboard-background {
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                       url('https://i.postimg.cc/L65pjPWG/Dashboard-naslovna-POGON-io.jpg');
-    background-size: contain;
+    background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-color: #1a1a2e;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
