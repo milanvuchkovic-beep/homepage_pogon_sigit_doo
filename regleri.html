@@ -214,7 +214,7 @@
         /**
          * Otvara web aplikaciju u modalnom prozoru.
          */
-        function openWebapp(pageName, buttonText, iconClass, includeId = false) { // 'includeId' je ovde 'false'
+        function openWebapp(pageName, buttonText, iconClass, includeId = false) {
             showStatus(`OTVARANJE: ${buttonText}...`);
             
             modalTitle.textContent = buttonText;
@@ -231,17 +231,10 @@
             
             webappFrame.src = targetUrl;
             
-            const minLoadTime = 1500;
-            const startTime = Date.now();
-            
-            webappFrame.onload = function() {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
-                
-                setTimeout(() => {
-                    iframeLoading.classList.remove('active');
-                }, remainingTime);
-            };
+            // Fiksno vreme učitavanja - tačno 2 sekunde
+            setTimeout(() => {
+                iframeLoading.classList.remove('active');
+            }, 2000);
             
             document.body.style.overflow = 'hidden';
         }
