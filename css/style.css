@@ -266,3 +266,10 @@ body {
 .portal-background.dashboard-background {
     background-image: url('https://i.postimg.cc/L65pjPWG/Dashboard-naslovna-POGON-io.jpg');
 }
+/* Stil specifičan za Dashboard */
+.portal-background.dashboard-background {
+    background-image: url('https://i.postimg.cc/L65pjPWG/Dashboard-naslovna-POGON-io.jpg');
+    background-size: contain; /* Prikazuje celu sliku */
+    background-color: #1e3a8a; /* Plava boja pozadine koja odgovara slici */
+    min-height: 60vh; /* Manja visina da slika ne bude prevelika */
+}
