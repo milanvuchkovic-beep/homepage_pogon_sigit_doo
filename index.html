@@ -33,7 +33,7 @@
         .iframe-modal-header {
             background-color: #007bff;
             color: #fff;
-            padding: 15px 30px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -42,21 +42,21 @@
 
         .iframe-modal-title {
             font-weight: 600;
-            font-size: 20px;
+            font-size: 18px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .close-modal-btn {
             background-color: rgba(255, 255, 255, 0.2);
             border: none;
             color: #fff;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -88,12 +88,12 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
             text-align: center;
             z-index: 10;
             display: none;
             background-color: rgba(0, 0, 0, 0.7);
-            padding: 30px 40px;
+            padding: 20px 30px;
             border-radius: 12px;
         }
 
@@ -102,13 +102,13 @@
         }
 
         .spinner {
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #fff;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
         }
 
         @keyframes spin {
@@ -116,13 +116,13 @@
             100% { transform: rotate(360deg); }
         }
         .loading-text {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .loading-subtext {
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.8;
             animation: pulse 1.5s ease-in-out infinite;
         }
@@ -130,6 +130,57 @@
         @keyframes pulse {
             0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
+        }
+        
+        /* OPTIMIZACIJA ZA TABLET LANDSCAPE */
+        @media screen and (min-width: 768px) and (orientation: landscape) {
+            .factory-section {
+                padding: 40px 20px !important;
+                min-height: 180px !important;
+            }
+            
+            .factory-section .main-title {
+                font-size: 36px !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .menu-grid {
+                padding: 15px !important;
+                gap: 12px !important;
+            }
+            
+            .menu-item {
+                padding: 15px 10px !important;
+                font-size: 16px !important;
+            }
+            
+            .zastoj-button-item {
+                width: 100px !important;
+                height: 100px !important;
+                margin: 10px auto !important;
+            }
+            
+            .zastoj-button-item i {
+                font-size: 50px !important;
+            }
+            
+            .supervisor-section {
+                padding: 10px 20px 15px !important;
+            }
+            
+            .supervisor-button {
+                padding: 15px 12px !important;
+                font-size: 16px !important;
+            }
+            
+            .supervisor-button i {
+                font-size: 24px !important;
+                margin-right: 10px !important;
+            }
+            
+            .play-button, .stop-button {
+                font-size: 60px !important;
+            }
         }
     </style>
 </head>
