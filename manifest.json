@@ -1,7 +1,8 @@
 {
   "name": "Pogon.io",
   "short_name": "Pogon",
-  "start_url": "/",
   "display": "fullscreen",
-  "orientation": "landscape"
+  "orientation": "landscape",
+  "background_color": "#ffffff",
+  "theme_color": "#007bff"
 }
