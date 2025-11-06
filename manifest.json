@@ -1,0 +1,7 @@
+{
+  "name": "Pogon.io",
+  "short_name": "Pogon",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}
