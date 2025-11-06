@@ -249,7 +249,7 @@
             </div>
             <button class="close-modal-btn" id="closeModal" title="Zatvori (ESC)">×</button>
         </div>
-        <div class="iframe-loading active" id="iframeLoading">
+        <div class="iframe-loading" id="iframeLoading">
             <div class="spinner"></div>
             <div class="loading-text">Učitavanje aplikacije...</div>
             <div class="loading-subtext">Molimo sačekajte</div>
@@ -258,7 +258,6 @@
             id="webappFrame" 
             class="iframe-modal-content"
             allow="camera; microphone; geolocation; fullscreen"
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
         ></iframe>
     </div>
     <script>
@@ -403,12 +402,6 @@
             document.getElementById('zastojiDugme').addEventListener('click', () => {
                 openWebapp('zastoj', 'Prijava zastoja', 'fa-hand-paper', true);
             });
-            
-            // Ovo dugme sada šalje 'primopredaja' ali BEZ ID-ja stanice
-            document.getElementById('primopredajaDugme').addEventListener('click', () => {
-                openWebapp('primopredaja', 'Primopredaja smene (ŠEFOVI)', 'fa-exchange-alt', false);
-            });
-            
 
             // Povezivanje dugmadi za zatvaranje modala
             closeModalBtn.addEventListener('click', closeWebapp);
