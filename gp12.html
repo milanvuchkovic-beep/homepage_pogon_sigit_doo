@@ -326,44 +326,22 @@
         }
         
         // Funkcija za otvaranje stranice u iframe-u
+        // Funkcija za otvaranje stranice u novom tabu (zaobilazak iframe blokade)
         function openGP12Page(pageName, buttonText, iconClass) {
             showStatus(`OTVARANJE: ${buttonText}...`);
             
-            // Postavi naslov i ikonu u modal header-u
-            modalTitle.textContent = buttonText;
-            modalIcon.className = `fas ${iconClass}`;
-            
-            // Prikaži modal sa loading-om odmah
-            iframeModal.classList.add('active');
-            iframeLoading.classList.add('active');
-            
-            // Učitaj webapp u iframe
+            // Generisanje tačnog linka
             const targetUrl = `${GP12_BASE_URL}?page=${pageName}`;
-            webappFrame.src = targetUrl;
             
-            // Minimalno vreme prikaza loading-a (1.5 sekundi)
-            const minLoadTime = 1500;
-            const startTime = Date.now();
+            // Otvaranje u novom tabu umesto u iframe-u
+            window.open(targetUrl, '_blank');
             
-            // Sakrij loading kada se iframe učita ALI tek posle minimuma
-            webappFrame.onload = function() {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
-                
-                setTimeout(() => {
-                    iframeLoading.classList.remove('active');
-                }, remainingTime);
-            };
-            
-            // Sigurnosni timeout - sakrij nakon 10 sekundi čak i ako se ne učita
+            // Opciono: resetuj statusnu poruku malo brže
             setTimeout(() => {
-                if (iframeLoading.classList.contains('active')) {
-                    iframeLoading.classList.remove('active');
+                if (statusMessage.classList.contains('visible')) {
+                    statusMessage.classList.remove('visible');
                 }
-            }, 10000);
-            
-            // Blokiraj scroll na body
-            document.body.style.overflow = 'hidden';
+            }, 1000);
         }
         
         // Funkcija za zatvaranje iframe-a
